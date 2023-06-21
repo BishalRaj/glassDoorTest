@@ -12,10 +12,12 @@ function App() {
   const [hasData, setHasData] = useState(false);
   const [prodData, setProdData] = useState({});
 
+  // to fetch and update data from form components
   function updateData(e) {
     setProdData({ ...prodData, [e.target.name]: e.target.value });
   }
 
+  // to navigate / change forms
   function handleClick() {
     if (counter >= 3) {
       setProdData({});
@@ -24,7 +26,7 @@ function App() {
   }
 
   useEffect(() => {
-    // validation
+    // validation for eliminating null and empty data
     switch (counter) {
       case 0:
         if (
@@ -54,8 +56,6 @@ function App() {
           setHasData(true);
         else setHasData(false);
         break;
-      case 3:
-        break;
     }
   }, [prodData, counter]);
 
@@ -66,6 +66,7 @@ function App() {
     >
       <Card className="shadow w-25 p-4">
         {counter === 0 && (
+          // form to get data from selection type
           <SelectForm
             field={"make"}
             options={makeOptions}
@@ -80,6 +81,7 @@ function App() {
           />
         )}
         {counter === 2 && (
+          // form to get data from input type
           <InputForm
             field={"code"}
             updateData={updateData}
@@ -87,8 +89,10 @@ function App() {
           />
         )}
         {counter === 3 && (
+          // to display data from forms
           <Information data={prodData} updateData={updateData} />
         )}
+
         <div className="w-100 d-flex  justify-content-between">
           <small>
             <i>Page | {counter + 1}</i>
