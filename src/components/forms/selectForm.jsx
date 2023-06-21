@@ -1,16 +1,20 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 const SelectForm = ({ field, options }) => {
   return (
-    <Row>
-      <Col lg={12}>{field}</Col>
+    <>
+      <Card.Title>{field}</Card.Title>
       <select name={field} id={field}>
-        {options.map((x) => {
-          return <option value={x}>{x}</option>;
+        {options.map((x, y) => {
+          return (
+            <option value={x} key={y * 15}>
+              {x}
+            </option>
+          );
         })}
       </select>
-    </Row>
+    </>
   );
 };
 
