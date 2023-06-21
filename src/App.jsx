@@ -20,22 +20,45 @@ function App() {
     setProdData({ ...prodData, [e.target.name]: e.target.value });
   }
 
+  function handleClick() {
+    if (counter >= 3) {
+      setProdData({
+        make: "",
+        colour: "",
+        code: "",
+      });
+      setCounter(0);
+    } else setCounter((x) => x + 1);
+  }
+
   useEffect(() => {
     // validation
     switch (counter) {
       case 0:
-        if (prodData.make != null || prodData.make != undefined)
+        if (
+          prodData.make != "" &&
+          prodData.make != null &&
+          prodData.make != undefined
+        )
           setHasData(true);
         else setHasData(false);
         break;
 
       case 1:
-        if (prodData.colour != null || prodData.colour != undefined)
+        if (
+          prodData.colour != "" &&
+          prodData.colour != null &&
+          prodData.colour != undefined
+        )
           setHasData(true);
         else setHasData(false);
         break;
       case 2:
-        if (prodData.code != null || prodData.code != undefined)
+        if (
+          prodData.code != "" &&
+          prodData.code != null &&
+          prodData.code != undefined
+        )
           setHasData(true);
         else setHasData(false);
         break;
@@ -76,10 +99,7 @@ function App() {
         )}
         <div className="w-100 d-flex  justify-content-between">
           {counter}
-          <button
-            onClick={() => setCounter((x) => (x >= 3 ? 0 : x + 1))}
-            disabled={!hasData}
-          >
+          <button onClick={() => handleClick()} disabled={!hasData}>
             {counter < 2 ? "Next" : counter > 2 ? "Redo" : "Done"}
           </button>
         </div>
