@@ -4,13 +4,30 @@ const Information = ({ data }) => {
 
   return (
     <div className="form-component">
-      <p>
-        Generated Text <br /> I have a {make} and the colour is {colour}. <br />
-        REF:
-        {code}
+      <h5 style={{ boxShadow: "0 5px 1px -4px gray" }}>Generated Text</h5>
+      <p className="my-3">
+        I have a{" "}
+        <b>
+          <i>{make}</i>
+        </b>{" "}
+        and the colour is{" "}
+        <b>
+          <i>{colour}</i>
+        </b>
+        .
+        <br />
+        {colour === "RED" && (
+          <span className="text-success">
+            THE CAR IS <span className="text-danger">RED</span>! NICE!!
+          </span>
+        )}
       </p>
-
-      {colour === "RED" && "THE CAR IS RED! NICE!!"}
+      <p>
+        REF:{" "}
+        <b>
+          <i>{code}</i>
+        </b>
+      </p>
     </div>
   );
 };

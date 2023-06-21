@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Information from "./components/information";
 import InputForm from "./components/forms/inputForm";
 import { colourOptions, makeOptions } from "./data";
+import { FaRedoAlt } from "react-icons/fa";
 import "./style.css";
 
 function App() {
@@ -89,9 +90,21 @@ function App() {
           <Information data={prodData} updateData={updateData} />
         )}
         <div className="w-100 d-flex  justify-content-between">
-          {counter}
-          <button onClick={() => handleClick()} disabled={!hasData}>
-            {counter < 2 ? "Next" : counter > 2 ? "Redo" : "Done"}
+          <small>
+            <i>Page | {counter + 1}</i>
+          </small>
+          <button
+            onClick={() => handleClick()}
+            disabled={!hasData}
+            className={`btn  ${
+              counter < 2
+                ? "btn-primary"
+                : counter == 2
+                ? "btn-success"
+                : "btn-warning"
+            }`}
+          >
+            {counter < 2 ? "Next" : counter > 2 ? <FaRedoAlt /> : "Done"}
           </button>
         </div>
       </Card>
