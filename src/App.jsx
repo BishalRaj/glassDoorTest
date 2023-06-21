@@ -1,22 +1,48 @@
 import { Card } from "react-bootstrap";
 import SelectForm from "./components/forms/selectForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Information from "./components/information";
 import InputForm from "./components/forms/inputForm";
+import { colourOptions, makeOptions } from "./data";
+import "./style.css";
 
 function App() {
   const [counter, setCounter] = useState(0);
-  const [prodData, setProdData] = useState([]);
-  const makeOptions = [
-    "AUDI",
-    "BMW",
-    "VAUXHAL",
-    "MERCEDES",
-    "PEUGEOT",
-    "RENAULT",
-  ];
+  const [prodData, setProdData] = useState({
+    make: "",
+    colour: "",
+    code: "",
+  });
 
-  const colourOptions = ["BLUE", "RED", "BLACK", "ORANGE"];
+  const [hasData, setHasData] = useState(false);
+
+  function updateData(e) {
+    setProdData({ ...prodData, [e.target.name]: e.target.value });
+  }
+
+  useEffect(() => {
+    // validation
+    switch (counter) {
+      case 0:
+        if (prodData.make != null || prodData.make != undefined)
+          setHasData(true);
+        else setHasData(false);
+        break;
+
+      case 1:
+        if (prodData.colour != null || prodData.colour != undefined)
+          setHasData(true);
+        else setHasData(false);
+        break;
+      case 2:
+        if (prodData.code != null || prodData.code != undefined)
+          setHasData(true);
+        else setHasData(false);
+        break;
+      case 3:
+        break;
+    }
+  }, [prodData, counter]);
 
   return (
     <div
@@ -24,16 +50,42 @@ function App() {
       style={{ height: "100vh", width: "auto" }}
     >
       <Card className="shadow w-25 p-4">
-        <SelectForm field={"make"} options={makeOptions} />
-        <SelectForm field={"colour"} options={colourOptions} />
-        <InputForm field={"code"} />
-        <Information data={prodData} />
+        {counter === 0 && (
+          <SelectForm
+            field={"make"}
+            options={makeOptions}
+            updateData={updateData}
+          />
+        )}
+        {counter === 1 && (
+          <SelectForm
+            field={"colour"}
+            options={colourOptions}
+            updateData={updateData}
+          />
+        )}
+        {counter === 2 && (
+          <InputForm
+            field={"code"}
+            updateData={updateData}
+            data={prodData.code}
+          />
+        )}
+        {counter === 3 && (
+          <Information data={prodData} updateData={updateData} />
+        )}
         <div className="w-100 d-flex  justify-content-between">
           {counter}
-          <button onClick={() => setCounter((x) => (x >= 2 ? 0 : x + 1))}>
-            Next
+          <button
+            onClick={() => setCounter((x) => (x >= 3 ? 0 : x + 1))}
+            disabled={!hasData}
+          >
+            {counter < 2 ? "Next" : counter > 2 ? "Redo" : "Done"}
           </button>
         </div>
+        <p>{prodData.colour}</p>
+        <p>{prodData.make}</p>
+        <p>{prodData.code}</p>
       </Card>
     </div>
   );
