@@ -8,13 +8,12 @@ import "./style.css";
 
 function App() {
   const [counter, setCounter] = useState(0);
+  const [hasData, setHasData] = useState(false);
   const [prodData, setProdData] = useState({
     make: "",
     colour: "",
     code: "",
   });
-
-  const [hasData, setHasData] = useState(false);
 
   function updateData(e) {
     setProdData({ ...prodData, [e.target.name]: e.target.value });
@@ -103,9 +102,6 @@ function App() {
             {counter < 2 ? "Next" : counter > 2 ? "Redo" : "Done"}
           </button>
         </div>
-        <p>{prodData.colour}</p>
-        <p>{prodData.make}</p>
-        <p>{prodData.code}</p>
       </Card>
     </div>
   );
