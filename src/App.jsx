@@ -9,11 +9,7 @@ import "./style.css";
 function App() {
   const [counter, setCounter] = useState(0);
   const [hasData, setHasData] = useState(false);
-  const [prodData, setProdData] = useState({
-    make: "",
-    colour: "",
-    code: "",
-  });
+  const [prodData, setProdData] = useState({});
 
   function updateData(e) {
     setProdData({ ...prodData, [e.target.name]: e.target.value });
@@ -21,11 +17,7 @@ function App() {
 
   function handleClick() {
     if (counter >= 3) {
-      setProdData({
-        make: "",
-        colour: "",
-        code: "",
-      });
+      setProdData({});
       setCounter(0);
     } else setCounter((x) => x + 1);
   }
