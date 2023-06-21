@@ -11,13 +11,14 @@ function App() {
   const [counter, setCounter] = useState(0);
   const [hasData, setHasData] = useState(false);
   const [prodData, setProdData] = useState({});
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
 
-  // to fetch and update data from form components
+  // function to fetch and update data from form components
   function updateData(e) {
     setProdData({ ...prodData, [e.target.name]: e.target.value });
   }
 
-  // to navigate / change forms
+  // function to navigate / change forms
   function handleClick() {
     if (counter >= 3) {
       setProdData({});
@@ -64,7 +65,9 @@ function App() {
       className="d-flex align-items-center justify-content-center"
       style={{ height: "100vh", width: "auto" }}
     >
-      <Card className="shadow w-25 p-4">
+      <Card
+        className={`shadow p-4 ${screenSize < 428 ? "w-100 mx-2" : "w-25"} `}
+      >
         {counter === 0 && (
           // form to get data from selection type
           <SelectForm
